@@ -23,12 +23,18 @@ for file in sorted(os.listdir("assets")):
         moment = cv2.moments(contours[1])
         center_x = moment["m10"] / moment["m00"]
         center_y = moment["m01"] / moment["m00"]
-        centroids.append((center_x, center_y))
 
+        # Find colour at the center point
+        rgb_colour = tuple(image[int(center_y), int(center_x)])
+        centroids.append(((center_x, center_y), rgb_colour))
 
 canvas = Image.new("RGB", (256, 256), (256, 256, 256))
 drawer = ImageDraw.Draw(canvas)
-for point in range(0, len(centroids), 2):
-    print(point)
-    drawer.line((centroids[point], centroids[point + 1]), fill="black", width=10)
+for point_index in range(0, len(centroids), 2):
+    colour = centroids[point_index][1]
+    drawer.line(
+        (centroids[point_index][0], centroids[point_index + 1][0]),
+        fill=colour,
+        width=10,
+    )
 canvas.show()
