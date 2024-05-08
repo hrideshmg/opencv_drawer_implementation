@@ -43,10 +43,8 @@ for file in files:
 canvas = Image.new("RGB", (512, 512), (256, 256, 256))
 drawer = ImageDraw.Draw(canvas)
 
-# Only start drawing from every 2nd point in the list
 for point_index in range(0, len(centroids) - 1):
     if centroids[point_index + 1] == "break" or centroids[point_index] == "break":
-        print(point_index + 1)
         continue
 
     colour = centroids[point_index][1]
